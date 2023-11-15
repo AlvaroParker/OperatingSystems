@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Paging - Introduction - Operating Systems: Book Summary</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> The Process</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Process API</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Mechanism - Limited Direct Execution</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> Scheduling</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> Multi-Level Feedback Queue</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Proportional Share</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> Address Spaces</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> Mechanism - Address Translation</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> Segmentation</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> Free-Space Management</a></li><li class="chapter-item expanded "><a href="chapter_11.html" class="active"><strong aria-hidden="true">11.</strong> Paging - Introduction</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Paging - Faster Translation</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Paging - Smaller Tables</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Beyond Physical Memory - Mechanism</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> Physical Memory - Policies</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">16.</strong> Concurrency - An Introduction</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">17.</strong> Thread API</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">18.</strong> Locks</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">19.</strong> Lock-Based Concurrent Data Structures</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">20.</strong> Condition Variables</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Operating Systems: Book Summary</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="11-paging---introduction"><a class="header" href="#11-paging---introduction">11. Paging - Introduction</a></h1>
+<p><em>Basic definition: We chop up space into fixed-sized pieces, this is known as paging</em></p>
+<ul>
+<li>We divide a process's address space into fixed-sized units, each of which we call a page</li>
+<li>Physical memory is view as an array of fixed-sized slots called page frames</li>
+<li>Each page frame contains a single virtual-memory page</li>
+</ul>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>Imagine we have a small address space of 64 bytes, with four 16-bytes pages. </p>
+<center><img src="./images/pageas.png"></center>
+<center><i>This could be the address space of a process, which is divided into 4 pages</i></center>
+<p>And that we have physical memory which consists of fixed-size slots, in this case 8 page frames.</p>
+<center><img src="./images/paginpm.png"></center>
+<p>Here we have:</p>
+<ul>
+<li>A 128 bytes physical memory</li>
+<li>8 page frames (from 0 to 7)</li>
+<li>Each page of the address space mentioned at the beginning is located somewhere in memory (not necessarily in order) </li>
+</ul>
+<p><strong>Advantages of paging:</strong> </p>
+<ul>
+<li>Flexibility</li>
+<li>Simplicity: If the OS wishes to place to place our 64 byte address space into our 8-page physical memory, it simply finds four free pages, perhaps the OS keeps a free list and just grabs the first 4 free page that finds</li>
+</ul>
+<p>Usually the OS keeps a per process data structure known as <strong>page table:</strong></p>
+<ul>
+<li>It store the address translation for each of the virtual pages of the address space of the process</li>
+<li>This let us know where in physical memory a virtual page resides</li>
+<li>In our example the page table would be something like this: </li>
+</ul>
+<pre><code>(Virtual Page 0 -&gt; Physical Frame 3)
+(Virtual Page 1 -&gt; Physical Frame 7)
+(Virtual Page 2 -&gt; Physical Frame 5)
+(Virtual Page 3 -&gt; Physical Frame 2)
+</code></pre>
+<h3 id="example-memory-access"><a class="header" href="#example-memory-access">Example memory access</a></h3>
+<ul>
+<li>We have the address space described at the beginning</li>
+<li>We want to perform a memory access: </li>
+</ul>
+<pre><code class="language-S">movl &lt;virtual address&gt;, %eax
+</code></pre>
+<p>Lets focus on how to translate the virtual address: </p>
+<ul>
+<li>We need to split it into two components:
+<ol>
+<li>Virtual page number (VPN) (This will help us map our virtual page number to a physical frame number)</li>
+<li>The offset within the page</li>
+</ol>
+</li>
+</ul>
+<p>Since our virtual address space is 64 bytes, we need 6 bits total for our virtual address (2^6 = 64)
+<em>This is because we can only reference 64 locations, and each location is 1 byte. We CAN'T reference a specific bit, the smallest addressable unit is a byte</em></p>
+<p>Our virtual address can be seeing as this: </p>
+<div class="table-wrapper"><table><thead><tr><th>Va5</th><th>Va4</th><th>Va3</th><th>Va2</th><th>Va1</th><th>Va0</th></tr></thead><tbody>
+</tbody></table>
+</div>
+<p>Here the highest order bit is <code>Va5</code> and the lowest order bit is <code>Va0</code>. Also we know that the page size is 16 bytes, hence we only need 4 bits to address the virtual memory inside our page (2^4=16), finally our 2 remaining highest order bits can be used to know which page number are we in. </p>
+<pre><code>[Va5, Va4] -&gt; VPN
+[Va3, Va2, Va1, Va0] -&gt; Offset
+</code></pre>
+<p>If we know want to load, for example, virtual address 21:</p>
+<pre><code class="language-S">movl 21, %eax
+</code></pre>
+<p>We know that 21 in binary is <code>010101</code>, hence we have the following virtual address: </p>
+<p>![[./images/vaddresstable.png]]
+We know that our <code>VPN = 01 = 1</code> and that our <code>offset = 0101 = 5</code>, hence our virtual address is on the first virtual page with offset of 5 bytes. </p>
+<p>From our page table we know that virtual page <code>1</code> corresponds to <code>Physical Frame 7</code>, then we can replace the <code>VPN</code> with the <code>PFN</code> (Physical frame number) and then issue the load to physical memory: </p>
+<center><img src="./images/translatepage.png"></center>
+<p>The offset stays the same because it tells us which byte within the page we want to address. </p>
+<h2 id="whats-in-the-page-table"><a class="header" href="#whats-in-the-page-table">What's in the page table</a></h2>
+<ul>
+<li>Page table is a data structure used to map virtual address to physical addresses, it a per process data structure, meaning each process has a page table</li>
+<li>Simplest form: Linear page table (Just an array) </li>
+<li>Linear page table indexes the array by the virtual page number and looks up the page-table entry (PTE) at that index to find the physical frame number (PFN). </li>
+<li>For example if I wanted to translate the virtual page number 3 to physical frame number, I would access <code>array[3]</code>  array index 3. </li>
+</ul>
+<h3 id="whats-inside-a-page-table-entry-pte"><a class="header" href="#whats-inside-a-page-table-entry-pte">What's inside a Page-table entry (PTE)</a></h3>
+<ul>
+<li>
+<p>Each PTE has a number of different bits worth understanding at some level.</p>
+</li>
+<li>
+<p><strong>Valid bit</strong>: Indicates if a translation is valid. When a process start running, it will have stack and code at one end of his address space, and heap on the other end. All the space in between is unused hence it will be marked invalid. By marking all the unused pages in the address space, we remove the need to allocate physical frames for those pages, thus saving memory. </p>
+</li>
+<li>
+<p><strong>Protection bits</strong>: Indicates if the page can be read, written or executed. </p>
+</li>
+<li>
+<p><strong>Present bit</strong>: Indicates if the page is on physical memory or disk (swap on Linux)</p>
+</li>
+<li>
+<p><strong>Dirty bit</strong>: Indicates whether the page has been modified since it was brought into memory</p>
+</li>
+<li>
+<p><strong>Reference bit</strong>: Track whether a page has been accessed, it helps us to determine which pages are &quot;popular&quot; and thus should be kept in memory. </p>
+</li>
+</ul>
+<p>An example page-table entry would look like this for the x86 architecture: </p>
+<center><img src="./images/pte_example.png"></center>
+<h2 id="the-problem-with-paging-too-slow"><a class="header" href="#the-problem-with-paging-too-slow">The problem with paging: Too slow</a></h2>
+<p>Imagine we want to access memory <code>21</code> on our example's address space: </p>
+<pre><code>movl 21, %eax
+</code></pre>
+<p>To do this we would need to translate virtual address space (21) into the physical address (117).
+Hence, before fetching the data from address 117, our system needs to:</p>
+<ul>
+<li>Fetch the page table from the process's page table</li>
+<li>Perform the trasnlation</li>
+<li>Load the data from physical memory
+To do so, the hardware must known where the page table is for the current process, let's imagines that this is on a cpu register, then our translate would look like this:</li>
+</ul>
+<pre><code>VPN = (VirtualAddress &amp; VPN_MASK) &gt;&gt; SHIFT
+PTEAddr = PageTableBaseRegister + (VPN * sizeof(PTE))
+
+offset = VirtualAddress &amp; OFFSET_MASK
+PhysAddr = (PFN &lt;&lt; SHIFT) | offset
+</code></pre>
+<ul>
+<li>On our first line we take our virtual address and apply a <code>VPN_MASK</code> to keep only the bits that represent or virtual page number, on our example, with virtual address <code>21</code> we would have: 
+<ul>
+<li>21 in binary is <code>010101</code></li>
+<li>Our <code>VPN_MASK</code> would be <code>110000</code> (we only need our most significant bits)</li>
+<li><code>SHIFT</code> would be 4, because we want to move our bits 4 spaces to the right</li>
+<li><code>VPN = (010101 &amp; 110000) &gt;&gt; 4 = (010000) &gt;&gt; 4 = (000001)</code></li>
+</ul>
+</li>
+<li>The second line would take the memory address of the page table and add the index (<code>VPN</code> multiplied by the size of the entries in the table <code>sizeof(PTE)</code>) to get the page table entry address</li>
+<li>Once the <code>PTEAddr</code> (page table entry address) is known, the hardware can load and extract the PFN (physical address of the page frame)</li>
+<li>On the last line, we use the <code>PFN</code> and left shift it and append the <code>offset</code> to get the final physical address space</li>
+<li>We can finally fetch the data from the physical address </li>
+</ul>
+<p>If you notice, we need to make one extra memory reference (we need to fetch the <code>PTE</code>) in order to get the initial memory address (<code>21</code> in this case).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_10.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_12.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_10.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_12.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Proportional Share - Operating Systems: Book Summary</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> The Process</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Process API</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Mechanism - Limited Direct Execution</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> Scheduling</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> Multi-Level Feedback Queue</a></li><li class="chapter-item expanded "><a href="chapter_6.html" class="active"><strong aria-hidden="true">6.</strong> Proportional Share</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> Address Spaces</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> Mechanism - Address Translation</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> Segmentation</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> Free-Space Management</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> Paging - Introduction</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Paging - Faster Translation</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Paging - Smaller Tables</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Beyond Physical Memory - Mechanism</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> Physical Memory - Policies</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">16.</strong> Concurrency - An Introduction</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">17.</strong> Thread API</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">18.</strong> Locks</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">19.</strong> Lock-Based Concurrent Data Structures</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">20.</strong> Condition Variables</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Operating Systems: Book Summary</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="6-scheduling---proportional-share"><a class="header" href="#6-scheduling---proportional-share">6. Scheduling - Proportional Share</a></h1>
+<p>Based around simple concept: <strong>Instead of optimizing for [[4. Scheduling#Turnaround time|turnaround]] or [[4. Scheduling#Response time|response]] time, the scheduler tries to guarantee that each job obtain a certain percentage of CPU time.</strong></p>
+<h2 id="lottery-scheduling"><a class="header" href="#lottery-scheduling">Lottery scheduling</a></h2>
+<p>Every so often, hold a lottery to determine which process should get to run next; processes that should run more often should be given more changes to win the lottery. </p>
+<h3 id="tickets-represent-your-share"><a class="header" href="#tickets-represent-your-share">Tickets represent your share</a></h3>
+<p>Tickets are used to represent the share of a resource that a process should receive. i.e. If we have two processes A and B, where a has 75 tickets and B has 25 tickets, that would mean that A should receive 75% of the CPU and B 25% of the CPU. 
+The longer these two jobs compete, the more likely they are to achieve the desired percentages.</p>
+<h3 id="ticket-mechanisms"><a class="header" href="#ticket-mechanisms">Ticket mechanisms</a></h3>
+<h4 id="ticket-currency"><a class="header" href="#ticket-currency">Ticket currency</a></h4>
+<p>It allow user to allocate tickets among their own jobs in whatever currency hey would like; the system then automatically converts said currency into the correct global value</p>
+<p><strong>Example:</strong> User A has two jobs, A1 and A2; User B has 1 job, B1. The operating systems gives user A and user B 100 tickets each and user A gives A1 500 tickets and A2 500 tickets while user B gives 1000 tickets to B1.</p>
+<pre><code>User A -&gt; 500  (A's currency) to A1 -&gt; 50  (global currency)
+       -&gt; 500  (A's currency) to A2 -&gt; 50  (global currency)
+User B -&gt; 1000 (B's currency) to B1 -&gt; 100 (global currency)
+</code></pre>
+<h4 id="ticket-transfer"><a class="header" href="#ticket-transfer">Ticket transfer</a></h4>
+<ul>
+<li>A process can temporarily hand off its tickets to another process</li>
+</ul>
+<h4 id="ticket-inflation"><a class="header" href="#ticket-inflation">Ticket inflation</a></h4>
+<ul>
+<li>A process can temporarily raise or lower the number of tickest it owns. </li>
+<li>Only valid on scenarios where processes trust one another. </li>
+<li>If any one process knows it needs more CPU time, it can boost its ticket value as a way to reflect that need to the system, without needing to communicate it to the other processes.</li>
+</ul>
+<h3 id="how-to-assign-tickets"><a class="header" href="#how-to-assign-tickets">How to assign tickets</a></h3>
+<p>We could assume that the users know best; in such case, each user is handed some number of tickets, and a user can allocate tickets to nay job they run as desired. 
+-&gt; That's a non solution since we are basically passing the problem to the user.</p>
+<h2 id="stride-scheduling"><a class="header" href="#stride-scheduling">Stride scheduling</a></h2>
+<p>Deterministic fair-share scheduler. </p>
+<ul>
+<li>Stride: Number that's inverse in proportion to the number of tickets a process has.</li>
+<li>Each job in the system has a stride. </li>
+<li>The more tickets, the lower stride. </li>
+<li>Each process has an initial pass value. </li>
+<li>Pick the process to run that has the lowest pass value so far</li>
+<li>When you ran a process, increment its pass counter by its stride.</li>
+</ul>
+<p>A simple pseudocode: </p>
+<pre><code class="language-C">curr = remove_min(queue);   // pick client with min pass
+schedule(curr);             // run for quantum
+curr-&gt;pass += curr-&gt;stride; // update pass using stride
+insert(queue, curr);        // return curr to queue
+</code></pre>
+<p>With lower stride value, you will run the process more times. </p>
+<ul>
+<li>A stride scheduling cycle is when all pass value are equal. </li>
+<li>At the end of each cycle, each process will have run in the same proportion to their ticket values. </li>
+</ul>
+<h3 id="main-problem-with-stride-scheduling"><a class="header" href="#main-problem-with-stride-scheduling">Main problem with stride scheduling</a></h3>
+<ul>
+<li>If a new job enters in the middle of our stride scheduling, what should its pass value be? Should it be set to 0? This will monopolize the CPU...</li>
+<li>With [[6. Scheduling - Proportional Share#Lottery scheduling|Lottery Scheduling]] this doesn't happen, if a new process arrives, we just increase the total number of tickets and we go on to the next cycle. </li>
+</ul>
+<h2 id="linux-completely-fair-scheduler-cfs"><a class="header" href="#linux-completely-fair-scheduler-cfs">Linux Completely Fair Scheduler (CFS)</a></h2>
+<p>Goal: To fairly divide a CPU evenly among all competing processes.
+To achieve this goal, it uses a simple counting-based technique know as virtual runtime (<code>vruntime</code>)</p>
+<ul>
+<li>As each process runs, it accumulates <code>vruntime</code></li>
+<li>Most basic case: Each process's <code>vruntime</code> increases at the same rate, in proportion with real time. </li>
+<li>Scheduling decision: CSF will pick the process with the lowest <code>vruntime</code></li>
+<li>How to know when to switch? 
+<ul>
+<li>CSF switches too often: Fairness increases, costs performance. </li>
+<li>CSF switches less often: Near-term fairness, performance increases </li>
+<li><code>sched_latency</code> is the value CFS uses to determine how long one process should run before considering a switch. CFS divides this value by the number of (<em>n</em>) processes running on the CPU to determine the time slice for a process, ensuring that over this period of time, CFS will be completely fair. </li>
+</ul>
+</li>
+<li>How it works: 
+<ul>
+<li>We have <em>n</em> = 4 processes running, CFS divides the value of <code>sched_latency</code> (i.e. 48 ms) by <em>n</em>  to arrive arive at a per-process time slice of 12 ms. </li>
+<li>CSF schedules the first job and runs it until it has used 12 ms of (virtual) runtime.</li>
+<li>Checks to see if there is a job with lower <code>vruntime</code> to run instead</li>
+<li>In this case there is, CFS switches to any of the other 3 jobs </li>
+<li>Repeat. </li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_7.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_7.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

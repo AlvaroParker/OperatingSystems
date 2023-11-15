@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Beyond Physical Memory - Mechanism - Operating Systems: Book Summary</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> The Process</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Process API</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Mechanism - Limited Direct Execution</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> Scheduling</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> Multi-Level Feedback Queue</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Proportional Share</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> Address Spaces</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> Mechanism - Address Translation</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> Segmentation</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> Free-Space Management</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> Paging - Introduction</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Paging - Faster Translation</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Paging - Smaller Tables</a></li><li class="chapter-item expanded "><a href="chapter_14.html" class="active"><strong aria-hidden="true">14.</strong> Beyond Physical Memory - Mechanism</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> Physical Memory - Policies</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">16.</strong> Concurrency - An Introduction</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">17.</strong> Thread API</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">18.</strong> Locks</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">19.</strong> Lock-Based Concurrent Data Structures</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">20.</strong> Condition Variables</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Operating Systems: Book Summary</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="14-beyond-physical-memory---mechanisms"><a class="header" href="#14-beyond-physical-memory---mechanisms">14. Beyond Physical Memory - Mechanisms</a></h1>
+<p>We've assumed that every address space of every running process fits into memory, we will now relax this assumptions, and assume that we wish to support many concurrently running large address space. </p>
+<p>To support large address spaces, the OS needs a place to stash away portions of address spaces that currently aren't in great demand, currently the most used place to stash this is the hard drive, we call this stash portion the swap space. </p>
+<h2 id="swap-space"><a class="header" href="#swap-space">Swap space</a></h2>
+<p>A space on the disk for moving pages back and fort, we swap pages out of memory to this space, and we swap pages into memory from this space. </p>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>We have a 3 page physical memory and an 8-page swap space. We also have 3 processes (Proc 0, Proc 1 and Proc 2) and they are actively sharing physical memory, there's also a 4th process that has all his pages on the swap space, hence is not running. </p>
+<p><img src="swap_example1.png" alt="" /></p>
+<h2 id="the-present-bit"><a class="header" href="#the-present-bit">The present bit</a></h2>
+<p>On our page table entry, we need to ad a bit entry that represents if the desired page is either on swap space or in physical memory.</p>
+<ul>
+<li>If the present bit is set to one, it means the page is present in physical memory and everything goes as &quot;normal&quot;</li>
+<li>If the present bit is set to zero, the page is not in memory, but rather on disk somewhere, this causes a page fault. On page fault, the OS needs to handle this exception via a page-fault handler. </li>
+</ul>
+<h2 id="the-page-fault"><a class="header" href="#the-page-fault">The page fault</a></h2>
+<p>There are two type of systems on TLB misses: </p>
+<ul>
+<li>Hardware managed TLBs</li>
+<li>Software managed TLBs
+On both of them, there OS has a <strong>page-fault handler</strong>, this will swap the page into memory in order to service the page fault. </li>
+</ul>
+<h3 id="how-does-the-os-finds-the-pages-on-swap-space"><a class="header" href="#how-does-the-os-finds-the-pages-on-swap-space">How does the OS finds the pages on swap space</a></h3>
+<ul>
+<li>The OS could use the bits in the PTE normally used for data such as the PFN of the page for a disk address</li>
+<li>When the OS finds a page-fault, it looks for the in the PTE to find the address on disk and issues the request to disk to fetch the page into memory</li>
+<li>When the I/O completes, the OS updates the page table to mark the page as present, it updates the PFN field on the PTE to the proper in memory location and retry the instruction</li>
+</ul>
+<h2 id="what-if-memory-is-full"><a class="header" href="#what-if-memory-is-full">What if memory is full?</a></h2>
+<p>When the memory is full, the OS might choose to kick out some pages to swap space in order to free up some space on memory. The policy to do this is known as <strong>page-replacement policy</strong></p>
+<h2 id="page-fault-control-flow"><a class="header" href="#page-fault-control-flow">Page fault control flow</a></h2>
+<p>What the hardware does during translation</p>
+<pre><code class="language-pseudocode">VPN = (VirtualAddress &amp; VPN_MASK) &gt;&gt; SHIFT
+(Success, TlbEntry) = TLB_Lookup(VPN) 
+if (Success == True) // TLB Hit (no need to translate by accessing memory) 
+	if (CanAccess(TlbEntry.ProtectBits) == True) 
+		Offset = VirtualAddress &amp; OFFSET_MASK
+		PhysAddr = (TlbEntry.PFN &lt;&lt; SHIFT) | Offset
+		Register = AccessMemory(PhysAddr)
+	else
+		RaiseException(PROTECTION_FAULT)
+else  // TLB Miss
+	PTEAddr = PTBR + (VPN * sizeof(PTE))
+	PTE = AccessMemory(PTEAddr)
+	if (PTE.Valid == False)
+		RaiseException(SEGMENTATION_FAULT)
+	else
+		if (CanAccess(PTE.ProtectBits) == False)
+			RaiseException(PROTECTION_FAULT)
+		else if (PTE.Present == True)
+			// assuming hardware-managed TLB
+			TLB_Insert(VPN, PTE.PFN, PTE.ProtectBits)
+			RetryInstruction()
+		else if (PTE.Present == False)
+			RaiseException(PAGE_FAULT)
+</code></pre>
+<p>What the OS does upon a page fault</p>
+<pre><code class="language-pseudocode">PFN = FIndFreePhysicalPage()
+if (PFN == -1)              // No free page found
+	PFN = EvictPage()
+DiskRead(PTE.DiskAddr, PFN) // Sleep (waiting for I/O)
+PTE.present = True          // Update page table with present bit and translation (PFN)
+PTE.PFN = PFN
+RetryInstruction()          // Retry instruction
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_13.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_15.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_13.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_15.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
