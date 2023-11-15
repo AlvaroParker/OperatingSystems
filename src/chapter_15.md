@@ -97,3 +97,17 @@ All this policies are based on the principle of locality
 When we encounter a miss on 3, we see which one was the least recently used, in this case is 2 so this is evicted, next we get a miss on 2, and we see that 0 is the least recently used so we evict that. 
 
 ## Workload examples
+### 1. No locality
+In our first example, our workload has no locality, meaning that each reference is to a random page, within the set of accessed pages.
+- The workloads accesses 100 unique pages over time, choosing the next at random
+- Overall, 10.000 pages are accessed
+
+<center><img src="./images/no_locality.png"></center>
+
+As we can see, LRU, FIFO and Random behave the same when dealing with workflow with no locality
+Conclusions from this plot: 
+1. When there's no locality, it doesn't matter  which realistic policy we choose
+2. When the cache is large enough to fit the entire workload, it also doesn't matter which policy to use. 
+3. Optimal (OPT) performs noticeable better than the realistic policies because it can "peek" to the future
+
+### 2. The 80-20 workload

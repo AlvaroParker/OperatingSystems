@@ -264,6 +264,21 @@ All this policies are based on the principle of locality
 <p>(It's like a FIFO but based on time)
 When we encounter a miss on 3, we see which one was the least recently used, in this case is 2 so this is evicted, next we get a miss on 2, and we see that 0 is the least recently used so we evict that. </p>
 <h2 id="workload-examples"><a class="header" href="#workload-examples">Workload examples</a></h2>
+<h3 id="1-no-locality"><a class="header" href="#1-no-locality">1. No locality</a></h3>
+<p>In our first example, our workload has no locality, meaning that each reference is to a random page, within the set of accessed pages.</p>
+<ul>
+<li>The workloads accesses 100 unique pages over time, choosing the next at random</li>
+<li>Overall, 10.000 pages are accessed</li>
+</ul>
+<center><img src="./images/no_locality.png"></center>
+<p>As we can see, LRU, FIFO and Random behave the same when dealing with workflow with no locality
+Conclusions from this plot: </p>
+<ol>
+<li>When there's no locality, it doesn't matter  which realistic policy we choose</li>
+<li>When the cache is large enough to fit the entire workload, it also doesn't matter which policy to use. </li>
+<li>Optimal (OPT) performs noticeable better than the realistic policies because it can &quot;peek&quot; to the future</li>
+</ol>
+<h3 id="2-the-80-20-workload"><a class="header" href="#2-the-80-20-workload">2. The 80-20 workload</a></h3>
 
                     </main>
 
@@ -294,22 +309,6 @@ When we encounter a miss on 3, we see which one was the least recently used, in 
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
