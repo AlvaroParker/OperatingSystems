@@ -1,4 +1,4 @@
-# 10. Free-Space Management
+# Free-Space Management
 - It becomes more difficult when the free space you are managing consist of variable sized units
 - Usually arises in user-level memory-allocation libraries (i.e. `malloc()` and `free()`)
 - Arises in the OS when using segmentation to implement virtual memory

@@ -1,4 +1,4 @@
-# 9. Segmentation
+# Segmentation
 *Note: MMU = Memory management unit*
 Problem with base-and-bound seen at *8* is that there is a big chunk of "free" space right in the middle, between the stack and the heap.
 The simple approach of using base and bound register pair to virtualize memory is wasteful and it doesn't help us either when the memory of the program is bigger than the address space. 

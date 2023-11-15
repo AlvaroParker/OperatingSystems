@@ -1,4 +1,4 @@
-# 11. Paging - Introduction
+# Paging - Introduction
 *Basic definition: We chop up space into fixed-sized pieces, this is known as paging*
 - We divide a process's address space into fixed-sized units, each of which we call a page
 - Physical memory is view as an array of fixed-sized slots called page frames
@@ -66,7 +66,8 @@ movl 21, %eax
 ```
 We know that 21 in binary is `010101`, hence we have the following virtual address: 
 
-![[./images/vaddresstable.png]]
+<center><img src="./images/vaddresstable.png"></center>
+
 We know that our `VPN = 01 = 1` and that our `offset = 0101 = 5`, hence our virtual address is on the first virtual page with offset of 5 bytes. 
 
 From our page table we know that virtual page `1` corresponds to `Physical Frame 7`, then we can replace the `VPN` with the `PFN` (Physical frame number) and then issue the load to physical memory: 

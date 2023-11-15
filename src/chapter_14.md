@@ -1,4 +1,4 @@
-# 14. Beyond Physical Memory - Mechanisms 
+# Beyond Physical Memory - Mechanisms 
 We've assumed that every address space of every running process fits into memory, we will now relax this assumptions, and assume that we wish to support many concurrently running large address space. 
 
 To support large address spaces, the OS needs a place to stash away portions of address spaces that currently aren't in great demand, currently the most used place to stash this is the hard drive, we call this stash portion the swap space. 

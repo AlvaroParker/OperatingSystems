@@ -1,4 +1,4 @@
-# 15. Physical Memory - Policies
+# Physical Memory - Policies
 When there's no much memory free, the operating system is forced to start paging out pages to make room for actively-used pages. Deciding which page to evict and which page not to is described in the replacement policy. 
 ## Cache management
 - We can view memory as cache: *main memory holds some subset of all the pages in the system*

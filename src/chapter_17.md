@@ -1,4 +1,4 @@
-# 17. Concurrency - An Introduction
+# Concurrency - An Introduction
 ## Threads characteristics
 - Thread process abstraction: Instead of a process having a single point of execution (single PC), a multi-threaded program has more than one point of execution.
 - Threads within the same process share the same address space. They can access the same data. 

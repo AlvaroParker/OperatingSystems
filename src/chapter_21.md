@@ -1,4 +1,4 @@
-# 21. Condition variables
+# Condition variables
 - Threads might want to check a condition is true before continuing its execution. 
 - A parent thread might wish to check whether a child thread has completed before continuing 
 - We would want to put the parent to sleep until the condition is met. 

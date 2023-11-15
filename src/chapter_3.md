@@ -1,4 +1,4 @@
-# 3. Mechanism - Limited Direct Execution
+# Mechanism - Limited Direct Execution
 
 *CPU virtualization: Run one process for a little while, then another one, and so forth. By time sharing the CPU, virtualization is achieved.*
 

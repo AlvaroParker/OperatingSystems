@@ -1,4 +1,4 @@
-# 20. Lock-based Concurrent Data Structures
+# Lock-based Concurrent Data Structures
 Adding locks to data structures to make them usable by threads makes the structure thread safe. 
 ## Crux: How to add locks to data structures
 How should we add locks to data structures, in order to make it work correctly, high performance, many threads at once? i.e. concurrently. 

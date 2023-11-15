@@ -1,4 +1,4 @@
-# 13. Paging - Smaller Tables
+# Paging - Smaller Tables
 Assume we have the following system: 
 - 32-bit address space (2\\({^{32}}\\) bytes)
 - 4KB (2\\({^{12}}\\) bytes) pages

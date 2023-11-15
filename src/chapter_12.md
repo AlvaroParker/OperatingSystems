@@ -1,4 +1,4 @@
-# 12. Paging - Faster Translations
+# Paging - Faster Translations
 On the previous chapter we saw that: 
 - By  using paging, we require a large amount of mapping information
 - The mapping information is usually stored in physical memory

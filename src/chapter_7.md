@@ -1,4 +1,4 @@
-# 7. Address Spaces
+# Address Spaces
 Early machines didn't provide much of an abstraction of memory to users, the OS sat in memory (i.e. at address 0) and there would be one running program that currently sat in physical memory and used the rest of memory. 
 
 ## Multiprocessing and time sharing 

@@ -1,4 +1,4 @@
-# 6. Scheduling - Proportional Share
+# Scheduling - Proportional Share
 Based around simple concept: **Instead of optimizing for [[4. Scheduling#Turnaround time|turnaround]] or [[4. Scheduling#Response time|response]] time, the scheduler tries to guarantee that each job obtain a certain percentage of CPU time.**
 ## Lottery scheduling
 Every so often, hold a lottery to determine which process should get to run next; processes that should run more often should be given more changes to win the lottery. 

@@ -1,4 +1,4 @@
-# 4. Scheduling
+# Scheduling
 ## Metrics
 
 ### Turnaround time: 
@@ -31,8 +31,8 @@
 - Better response time
 - Shorter time slice makes RR perform better on the response time metric 
 - Too short makes context switching slow down the systems
-***
 
+## Observations
 - Fair scheduling policies perform poorly on metrics like turn around time but good on metrics like response time. (SJF, STCF)
 - Unfair scheduling policies perform poorly on response time and better on turn around time.  (RR)
 

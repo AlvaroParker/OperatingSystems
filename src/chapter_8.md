@@ -1,4 +1,4 @@
-# 8. Mechanism - Address Translation
+# Mechanism - Address Translation
 
 ## Introduction
 **Definition:** With address translation, the hardware transforms each memory access(e.g, an instruction fetch, load, or store) changing the virtual address provided by the instruction to a physical address where the desired information is actually located. 

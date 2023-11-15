@@ -1,4 +1,4 @@
-# 19. Locks 
+# Locks 
 We want to execute a series of instruction atomically, due to the presence of interrupts, we couldn't. To solve this we introduce lock, which we put around critical section and ensure this sections is executed as a single atomic instruction. 
 
 ## The basic idea

@@ -1,4 +1,4 @@
-# 5. Multi-Level Feedback Queue
+# Multi-Level Feedback Queue
 ## Goals: 
 - Minimize turn around time (Time of completion - Time of arrival)
 	- Problems:  
