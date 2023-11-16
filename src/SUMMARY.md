@@ -22,3 +22,4 @@
     - [Condition Variables](./chapter_21.md)
 - [I/O Devices](./chapter_22.md)
     - [Files and Directories](./chapter_23.md)
+    - [Filesystem Implementation](./chapter_24.md)
