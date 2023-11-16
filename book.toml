@@ -7,3 +7,6 @@ title = "Operating Systems: Book Summary"
 
 [output.html]
 mathjax-support = true
+git-repository-url = "https://github.com/AlvaroParker/OperatingSystems"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/AlvaroParker/OperatingSystems/edit/main/{path}"
